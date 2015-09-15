@@ -22,3 +22,11 @@ Explore lumen feature
     `lumen new explore-installer`
     > Crafting application...
     > Application ready! Build something amazing.
+    
+* Alternative method using Composer install (slower)
+
+    `composer create-project laravel/lumen --prefer-dist explore-installer`
+
+### Explore Configuration
+
+

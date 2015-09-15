@@ -1,0 +1,19 @@
+{
+    "name": "ct-laravel/lumen",
+    "description": "Laravel Lumen Explorer.",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.5.9",
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+    },
+    "autoload-dev": {
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}

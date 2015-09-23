@@ -19,6 +19,6 @@ $app->get('/fast', function () {
     return 'Faster';
 });
 
-$app->get('/fast/{id:[0-9]+}', function ($id) {
+$app->get('/fast/{id:\d+}', function ($id) {
     return 'Faster with id:' . $id;
 });

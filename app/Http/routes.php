@@ -22,3 +22,16 @@ $app->get('/fast', function () {
 $app->get('/fast/{id:\d+}', function ($id) {
     return 'Faster with id:' . $id;
 });
+
+/**
+ * Resource routes
+ */
+$app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('/', ['as' => 'resources.index', 'uses' => 'ResourceController@index']);
+    $app->post('/', ['as' => 'resources.store', 'uses' => 'ResourceController@store']);
+    $app->get('/{resource:\d+}', ['as' => 'resources.show', 'uses' => 'ResourceController@show']);
+    $app->put('/{resource:\d+}', ['as' => 'resources.replace', 'uses' => 'ResourceController@replace']);
+    $app->patch('/{resource:\d+}', ['as' => 'resources.update', 'uses' => 'ResourceController@update']);
+    $app->delete('/{resource:\d+}', ['as' => 'resources.destroy', 'uses' => 'ResourceController@destroy']);
+    $app->options('/', ['as' => 'resources.options', 'uses' => 'ResourceController@options']);
+});

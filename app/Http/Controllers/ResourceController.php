@@ -7,8 +7,8 @@ class ResourceController extends BaseController
 {
     /**
      * Implement resources.index
-     *
-     * @return \Laravel\Lumen\Http\ResponseFactory
+     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class ResourceController extends BaseController
             ['id' => 2, 'name' => 'two'],
         ];
 
-        return response()->json($data);
+        return new \Illuminate\Http\JsonResponse($data);
     }
 
     /**

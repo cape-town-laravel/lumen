@@ -8,7 +8,7 @@ class ResourceController extends BaseController
     /**
      * Implement resources.index
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Laravel\Lumen\Http\ResponseFactory
      */
     public function index()
     {
@@ -26,7 +26,7 @@ class ResourceController extends BaseController
      *
      * @param \Illuminate\Http\Request $request Request sent
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Laravel\Lumen\Http\ResponseFactory
      */
     public function store(\Illuminate\Http\Request $request)
     {
@@ -49,7 +49,7 @@ class ResourceController extends BaseController
      *
      * @param int $resource Resource Id
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Laravel\Lumen\Http\ResponseFactory
      */
     public function show($resource)
     {
@@ -68,7 +68,7 @@ class ResourceController extends BaseController
      * @param \Illuminate\Http\Request $request  Request object
      * @param int                      $resource Resource id
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Laravel\Lumen\Http\ResponseFactory
      */
     public function replace(\Illuminate\Http\Request $request, $resource)
     {
@@ -89,7 +89,7 @@ class ResourceController extends BaseController
      * @param \Illuminate\Http\Request $request  Request object
      * @param int                      $resource Resource id
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Laravel\Lumen\Http\ResponseFactory
      */
     public function update(\Illuminate\Http\Request $request, $resource)
     {
@@ -110,7 +110,7 @@ class ResourceController extends BaseController
      *
      * @param int $resource Resource id
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Laravel\Lumen\Http\ResponseFactory
      */
     public function destroy($resource)
     {
@@ -126,7 +126,7 @@ class ResourceController extends BaseController
     /**
      * Implement resources.options
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Laravel\Lumen\Http\ResponseFactory
      */
     public function options()
     {

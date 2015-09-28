@@ -1,0 +1,8 @@
+build:
+    tests:
+        override:
+            -
+                command: phpunit
+                coverage:
+                    file: reports/phpunit.coverage.xml
+                    format: php-clover

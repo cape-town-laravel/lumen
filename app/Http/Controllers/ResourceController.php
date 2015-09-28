@@ -7,7 +7,7 @@ class ResourceController extends BaseController
 {
     /**
      * Implement resources.index
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -26,7 +26,7 @@ class ResourceController extends BaseController
      *
      * @param \Illuminate\Http\Request $request Request sent
      *
-     * @return \Laravel\Lumen\Http\ResponseFactory
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(\Illuminate\Http\Request $request)
     {
@@ -41,7 +41,7 @@ class ResourceController extends BaseController
         // Location of created resource
         $headers = ['location' => route('resources.show', ['resource' => 4])];
 
-        return response()->json(['created' => $created], 201, $headers);
+        return new \Illuminate\Http\JsonResponse(['created' => $created], 201, $headers);
     }
 
     /**
@@ -49,7 +49,7 @@ class ResourceController extends BaseController
      *
      * @param int $resource Resource Id
      *
-     * @return \Laravel\Lumen\Http\ResponseFactory
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($resource)
     {
@@ -59,7 +59,7 @@ class ResourceController extends BaseController
         // Retrieving...
         $data = ['id' => (int)$resource, 'name' => 'three'];
 
-        return response()->json($data);
+        return new \Illuminate\Http\JsonResponse($data);
     }
 
     /**
@@ -68,7 +68,7 @@ class ResourceController extends BaseController
      * @param \Illuminate\Http\Request $request  Request object
      * @param int                      $resource Resource id
      *
-     * @return \Laravel\Lumen\Http\ResponseFactory
+     * @return \Illuminate\Http\JsonResponse
      */
     public function replace(\Illuminate\Http\Request $request, $resource)
     {
@@ -80,7 +80,7 @@ class ResourceController extends BaseController
         // Replacing...
         $doReplace = isset($data['name']);
 
-        return response()->json(['replaced' => $doReplace], 200);
+        return new \Illuminate\Http\JsonResponse(['replaced' => $doReplace], 200);
     }
 
     /**
@@ -89,7 +89,7 @@ class ResourceController extends BaseController
      * @param \Illuminate\Http\Request $request  Request object
      * @param int                      $resource Resource id
      *
-     * @return \Laravel\Lumen\Http\ResponseFactory
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(\Illuminate\Http\Request $request, $resource)
     {
@@ -102,7 +102,7 @@ class ResourceController extends BaseController
         // Patching..
         $patched = ($test['id'] == $resource) && isset($replace['name']);
 
-        return response()->json(['patched' => $patched]);
+        return new \Illuminate\Http\JsonResponse(['patched' => $patched]);
     }
 
     /**
@@ -110,7 +110,7 @@ class ResourceController extends BaseController
      *
      * @param int $resource Resource id
      *
-     * @return \Laravel\Lumen\Http\ResponseFactory
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($resource)
     {
@@ -120,18 +120,18 @@ class ResourceController extends BaseController
         //Deleting...
         $deleted = !empty($resource);
 
-        return response()->json(['deleted' => $deleted]);
+        return new \Illuminate\Http\JsonResponse(['deleted' => $deleted]);
     }
 
     /**
      * Implement resources.options
      *
-     * @return \Laravel\Lumen\Http\ResponseFactory
+     * @return \Illuminate\Http\Response
      */
     public function options()
     {
         $headers = ['allow' => implode(',', ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'])];
 
-        return response(null, 200, $headers);
+        return  new \Illuminate\Http\Response(null, 200, $headers);
     }
 }

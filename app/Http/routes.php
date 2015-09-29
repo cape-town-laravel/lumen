@@ -11,22 +11,22 @@
 |
 */
 
-$app->get('/', function () use ($app) {
+$app->get('/', function() use ($app) {
     return $app->welcome();
 });
 
-$app->get('/fast', function () {
+$app->get('/fast', function() {
     return 'Faster';
 });
 
-$app->get('/fast/{id:\d+}', function ($id) {
+$app->get('/fast/{id:\d+}', function($id) {
     return 'Faster with id:' . $id;
 });
 
 /**
  * Resource routes
  */
-$app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], function ($app) {
+$app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], function($app) {
     $app->get('/', ['as' => 'resources.index', 'uses' => 'ResourceController@index']);
     $app->post('/', ['as' => 'resources.store', 'uses' => 'ResourceController@store']);
     $app->get('/{resource:\d+}', ['as' => 'resources.show', 'uses' => 'ResourceController@show']);

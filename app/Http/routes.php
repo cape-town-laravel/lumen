@@ -11,17 +11,9 @@
 |
 */
 
-$app->get('/', function() use ($app) {
-    return $app->welcome();
-});
-
-$app->get('/fast', function() {
-    return 'Faster';
-});
-
-$app->get('/fast/{id:\d+}', function($id) {
-    return 'Faster with id:' . $id;
-});
+$app->get('/', 'Controller@getIndex');
+$app->get('/fast', 'Controller@getFast');
+$app->get('/fast/{id:\d+}', 'Controller@getFastId');
 
 /**
  * Resource routes
@@ -35,3 +27,16 @@ $app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], fu
     $app->delete('/{resource:\d+}', ['as' => 'resources.destroy', 'uses' => 'ResourceController@destroy']);
     $app->options('/', ['as' => 'resources.options', 'uses' => 'ResourceController@options']);
 });
+
+/**
+ * Cached routes
+ * It uses Lumen to add routes.
+ */
+$app->setDispatcher(FastRoute\cachedDispatcher(function (FastRoute\RouteCollector $r) use ($app) {
+    foreach ($app->getRoutes() as $route) {
+        $r->addRoute($route['method'], $route['uri'], $route['action']);
+    }
+}, [
+    'cacheFile'     => __DIR__ . '/route.cache', /* required */
+    'cacheDisabled' => env('IS_DEBUG_ENABLED', true), /* optional, enabled by default */
+]));

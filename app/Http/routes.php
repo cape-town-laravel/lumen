@@ -32,7 +32,7 @@ $app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], fu
  * Cached routes
  * It uses Lumen to add routes.
  */
-$app->setDispatcher(FastRoute\cachedDispatcher(function (FastRoute\RouteCollector $r) use ($app) {
+$app->setDispatcher(FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) use ($app) {
     foreach ($app->getRoutes() as $route) {
         $r->addRoute($route['method'], $route['uri'], $route['action']);
     }

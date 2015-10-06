@@ -9,8 +9,9 @@ class ExampleMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -35,7 +36,7 @@ class ExampleMiddleware
             $etag = md5($response->getContent());
             $requestEtag = str_replace('"', '', $request->getETags());
             // Check to see if Etag has changed
-            if ($requestEtag && $requestEtag[0] == $etag) {
+            if (!empty($requestEtag) && $requestEtag[0] == $etag) {
                 $response->setNotModified();
             }
             // Set Etag

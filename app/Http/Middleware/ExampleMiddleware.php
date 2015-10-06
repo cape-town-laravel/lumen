@@ -16,21 +16,23 @@ class ExampleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        /**
-         * Before
-         */
         if ($request->has('foo')) {
-            $beforeResponse = response($request->get('foo'));
+            return response($request->get('foo'));
         }
 
-        /**
-         * Process
-         */
-        $response = isset($beforeResponse) ? $beforeResponse : $next($request);
+        $response = $next($request);
 
-        /**
-         * After
-         */
+        $afterResponse = $this->after($request, $response);
+
+        return $afterResponse;
+    }
+
+    /**
+     * @param $request
+     * @param $response
+     */
+    private function after($request, $response)
+    {
         if ($request->isMethod('get')) {
             // Generate Etag
             $etag = md5($response->getContent());
@@ -45,5 +47,4 @@ class ExampleMiddleware
 
         return $response;
     }
-
 }

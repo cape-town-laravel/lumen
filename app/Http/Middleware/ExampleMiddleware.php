@@ -15,6 +15,34 @@ class ExampleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        /**
+         * Before
+         */
+        if ($request->has('foo')) {
+            $beforeResponse = response($request->get('foo'));
+        }
+
+        /**
+         * Process
+         */
+        $response = isset($beforeResponse) ? $beforeResponse : $next($request);
+
+        /**
+         * After
+         */
+        if ($request->isMethod('get')) {
+            // Generate Etag
+            $etag = md5($response->getContent());
+            $requestEtag = str_replace('"', '', $request->getETags());
+            // Check to see if Etag has changed
+            if ($requestEtag && $requestEtag[0] == $etag) {
+                $response->setNotModified();
+            }
+            // Set Etag
+            $response->setEtag($etag);
+        }
+
+        return $response;
     }
+
 }

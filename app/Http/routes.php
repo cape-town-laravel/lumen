@@ -28,6 +28,8 @@ $app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], fu
     $app->options('/', ['as' => 'resources.options', 'uses' => 'ResourceController@options']);
 });
 
+$app->get('/example', 'ExampleController@index');
+
 /**
  * Cached routes
  * It uses Lumen to add routes.

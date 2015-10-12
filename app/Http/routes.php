@@ -31,6 +31,11 @@ $app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], fu
 $app->get('/example', 'ExampleController@index');
 
 /**
+ * Game Of Life
+ */
+$app->post('/gol/{width:\d+}x{height:\d+}', ['as'=>'game-of-life', 'uses'=>'GameOfLifeController@engine']);
+
+/**
  * Cached routes
  * It uses Lumen to add routes.
  */

@@ -18,7 +18,7 @@ $app->get('/fast/{id:\d+}', 'Controller@getFastId');
 /**
  * Resource routes
  */
-$app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], function($app) {
+$app->group(['prefix' => 'resources', 'namespace' => 'App\Http\Controllers'], function ($app) {
     $app->get('/', ['as' => 'resources.index', 'uses' => 'ResourceController@index']);
     $app->post('/', ['as' => 'resources.store', 'uses' => 'ResourceController@store']);
     $app->get('/{resource:\d+}', ['as' => 'resources.show', 'uses' => 'ResourceController@show']);
@@ -33,13 +33,14 @@ $app->get('/example', 'ExampleController@index');
 /**
  * Game Of Life
  */
-$app->post('/gol/{width:\d+}x{height:\d+}', ['as'=>'game-of-life', 'uses'=>'GameOfLifeController@engine']);
+$app->post('/gol/{width:\d+}x{height:\d+}', ['as' => 'game-of-life.engine', 'uses' => 'GameOfLifeController@engine']);
+$app->get('/gol', ['as' => 'game-of-life.index', 'uses' => 'GameOfLifeController@index']);
 
 /**
  * Cached routes
  * It uses Lumen to add routes.
  */
-$app->setDispatcher(FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) use ($app) {
+$app->setDispatcher(FastRoute\cachedDispatcher(function (FastRoute\RouteCollector $r) use ($app) {
     foreach ($app->getRoutes() as $route) {
         $r->addRoute($route['method'], $route['uri'], $route['action']);
     }

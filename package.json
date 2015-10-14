@@ -1,0 +1,24 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "Micro-service demo",
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "~4.2.0",
+    "envify": "~1.2.1",
+    "gulp": "*",
+    "gulp-notify": "^2.2.0",
+    "gulp-util": "*",
+    "react": "~0.14.0",
+    "react-dom": "~0.14.0",
+    "reactify": "~0.13.1",
+    "vinyl-source-stream": "~0.1.1",
+    "watchify": "~0.10.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan Abrahams",
+  "license": "MIT"
+}

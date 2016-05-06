@@ -29,11 +29,36 @@ export default class Tile extends React.Component {
 
 export default class Grid extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: []
+        };
+    }
+
+    componentDidMount() {
+        if (!!window.EventSource) {
+            var source = new EventSource(this.props.source);
+        } else {
+            console.log('not suported')
+        }
+
+        var __self = this;
+        source.addEventListener('message', function (e) {
+            if (JSON.parse(e.data).length == 0) {
+                this.close();
+            } else {
+                __self.setState({data: JSON.parse(e.data)});
+            }
+        }, false);
+
+    }
+
     render() {
         return (
             <table className="grid">
                 <tbody>
-                { this.props.data.map(this.renderRow.bind(this)) }
+                {this.state.data.map(this.renderRow.bind(this)) }
                 </tbody>
             </table>
         );
@@ -64,14 +89,14 @@ export default class Grid extends React.Component {
 var data = [
     [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
     [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 var actions = {
     toggle: function (coordinate, current) {
@@ -83,24 +108,6 @@ var actions = {
 
 
 ReactDOM.render(
-    <Grid data={ data } toggle={ actions.toggle }/>,
+    <Grid source={ '/gol/10x10' } toggle={ actions.toggle }/>,
     document.getElementById('root')
 );
-
-$.ajax({
-    method: 'post',
-    contentType: "application/json; charset=utf-8",
-    data: JSON.stringify(data),
-    url: 'gol/10x10',
-    dataType: 'json',
-    cache: false,
-    success: function (data) {
-        ReactDOM.render(
-            <Grid data={ data } toggle={ actions.toggle }/>,
-            document.getElementById('root')
-        );
-    }.bind(this),
-    error: function (xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-    }.bind(this)
-});

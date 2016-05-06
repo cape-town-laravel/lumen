@@ -34,17 +34,19 @@ $app->get('/example', 'ExampleController@index');
  * Game Of Life
  */
 $app->post('/gol/{width:\d+}x{height:\d+}', ['as' => 'game-of-life.engine', 'uses' => 'GameOfLifeController@engine']);
+$app->get('/gol/{width:\d+}x{height:\d+}' ,['as'=>'game-of-life.stream','uses'=>'GameOfLifeController@stream']);
 $app->get('/gol', ['as' => 'game-of-life.index', 'uses' => 'GameOfLifeController@index']);
+$app->get('/socket', ['as' => 'game-of-life.socket', 'uses' => 'GameOfLifeController@socket']);
 
 /**
  * Cached routes
  * It uses Lumen to add routes.
  */
-$app->setDispatcher(FastRoute\cachedDispatcher(function (FastRoute\RouteCollector $r) use ($app) {
-    foreach ($app->getRoutes() as $route) {
-        $r->addRoute($route['method'], $route['uri'], $route['action']);
-    }
-}, [
-    'cacheFile'     => __DIR__ . '/route.cache', /* required */
-    'cacheDisabled' => env('IS_DEBUG_ENABLED', true), /* optional, enabled by default */
-]));
+//$app->setDispatcher(FastRoute\cachedDispatcher(function (FastRoute\RouteCollector $r) use ($app) {
+//    foreach ($app->getRoutes() as $route) {
+//        $r->addRoute($route['method'], $route['uri'], $route['action']);
+//    }
+//}, [
+//    'cacheFile'     => __DIR__ . '/route.cache', /* required */
+//    'cacheDisabled' => env('IS_DEBUG_ENABLED', true), /* optional, enabled by default */
+//]));

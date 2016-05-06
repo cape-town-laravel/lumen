@@ -22,6 +22,6 @@
         </div>
         <div class="panel-footer">http://alanrsoares.github.io/redux-game-of-life/</div>
     </div>
-
+    <script src="static/main.js"></script>
 @endsection
 

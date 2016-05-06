@@ -46,6 +46,5 @@
 <div class="container">
     @yield('content')
 </div>
-<script src="static/main.js"></script>
 </body>
 </html>
